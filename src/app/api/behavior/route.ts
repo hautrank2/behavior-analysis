@@ -4,10 +4,18 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export const POST = async (req: NextRequest) => {
+  const searchParams = req.nextUrl.searchParams;
+  const type = searchParams.get("type");
+  if (!type) {
+    return new Response("Behavior type not provided", { status: 400 });
+  }
   try {
     const data = await req.json();
     const res = await prisma.behavior.create({
-      data,
+      data: {
+        ...data,
+        type,
+      },
     });
     return NextResponse.json(res);
   } catch (err) {
@@ -15,7 +23,16 @@ export const POST = async (req: NextRequest) => {
   }
 };
 
-export const GET = async () => {
-  const res = await prisma.behavior.findMany();
+export const GET = async (req: NextRequest) => {
+  const filter: Record<string, any> = {};
+  req.nextUrl.searchParams.forEach((value, key) => {
+    filter[key] = value;
+  });
+
+  // truyền filter vào Prisma
+  const res = await prisma.behavior.findMany({
+    where: filter,
+  });
+
   return NextResponse.json(res);
 };
