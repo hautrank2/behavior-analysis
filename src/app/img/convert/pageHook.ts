@@ -4,7 +4,7 @@ import z from "zod";
 import { UploadedFile, UploaderRef } from "~/components/upload";
 import { IMAGE_EXT_OPTIONS } from "~/constants/image";
 import { zodResolver } from "@hookform/resolvers/zod";
-import httpClient, { HttpError } from "~/api/httpClient";
+import httpClient from "~/api/httpClient";
 import { downloadZipBlob } from "~/utils/file";
 
 export const IMG_EXT_OPTIONS = IMAGE_EXT_OPTIONS;

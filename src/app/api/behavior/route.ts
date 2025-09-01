@@ -15,7 +15,7 @@ export const POST = async (req: NextRequest) => {
   }
 };
 
-export const GET = async (req: NextRequest) => {
+export const GET = async () => {
   const res = await prisma.behavior.findMany();
   return NextResponse.json(res);
 };

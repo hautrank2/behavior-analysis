@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { motion, type Transition } from 'motion/react';
-import { Children, type ReactNode } from 'react';
+import * as React from "react";
+import { motion, type Transition } from "motion/react";
+import { Children } from "react";
 
-import { cn } from '~/lib/utils';
+import { cn } from "~/lib/utils";
 import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '~/components/ui/tooltip';
-import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+} from "~/components/ui/tooltip";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
 // Define types based on components
 type TooltipContentProps = React.ComponentProps<typeof TooltipContent>;
@@ -99,11 +99,16 @@ type AvatarStackItemProps = {
   className?: string;
 };
 
-function AvatarStackItem({ children, index, size, className }: AvatarStackItemProps) {
+function AvatarStackItem({
+  children,
+  index,
+  size,
+  className,
+}: AvatarStackItemProps) {
   return (
     <div
       className={cn(
-        'size-full shrink-0 overflow-hidden rounded-full',
+        "size-full shrink-0 overflow-hidden rounded-full",
         '[&_[data-slot="avatar"]]:size-full',
         className
       )}
@@ -111,8 +116,10 @@ function AvatarStackItem({ children, index, size, className }: AvatarStackItemPr
         width: size,
         height: size,
         maskImage: index
-          ? `radial-gradient(circle ${size / 2}px at -${size / 4 + size / 10}px 50%, transparent 99%, white 100%)`
-          : '',
+          ? `radial-gradient(circle ${size / 2}px at -${
+              size / 4 + size / 10
+            }px 50%, transparent 99%, white 100%)`
+          : "",
       }}
     >
       {children}
@@ -126,9 +133,9 @@ function AvatarGroupTooltip(props: AvatarGroupTooltipProps) {
   return <TooltipContent {...props} />;
 }
 
-type AvatarGroupVariant = 'motion' | 'css' | 'stack';
+type AvatarGroupVariant = "motion" | "css" | "stack";
 
-type AvatarGroupProps = Omit<React.ComponentProps<'div'>, 'translate'> & {
+type AvatarGroupProps = Omit<React.ComponentProps<"div">, "translate"> & {
   children: React.ReactElement[];
   variant?: AvatarGroupVariant;
   transition?: Transition;
@@ -144,23 +151,23 @@ function AvatarGroup({
   ref,
   children,
   className,
-  variant = 'motion',
-  transition = { type: 'spring', stiffness: 300, damping: 17 },
+  variant = "motion",
+  transition = { type: "spring", stiffness: 300, damping: 17 },
   invertOverlap = false,
-  translate = '-30%',
-  tooltipProps = { side: 'top', sideOffset: 24 },
+  translate = "-30%",
+  tooltipProps = { side: "top", sideOffset: 24 },
   animate = false,
   size = 40,
   ...props
 }: AvatarGroupProps) {
   // Stack variant
-  if (variant === 'stack') {
+  if (variant === "stack") {
     return (
       <div
         ref={ref}
         className={cn(
-          '-space-x-1 flex items-center',
-          animate && 'hover:space-x-0 [&>*]:transition-all',
+          "-space-x-1 flex items-center",
+          animate && "hover:space-x-0 [&>*]:transition-all",
           className
         )}
         {...props}
@@ -191,17 +198,19 @@ function AvatarGroup({
         ref={ref}
         data-slot="avatar-group"
         className={cn(
-          'flex items-center',
-          variant === 'css' && '-space-x-3',
-          variant === 'motion' && 'flex-row -space-x-2 h-8',
+          "flex items-center",
+          variant === "css" && "-space-x-3",
+          variant === "motion" && "flex-row -space-x-2 h-8",
           className
         )}
         {...props}
       >
         {children?.map((child, index) => {
-          const zIndex = invertOverlap ? React.Children.count(children) - index : index;
-          
-          if (variant === 'motion') {
+          const zIndex = invertOverlap
+            ? React.Children.count(children) - index
+            : index;
+
+          if (variant === "motion") {
             return (
               <AvatarMotionContainer
                 key={index}
@@ -214,7 +223,7 @@ function AvatarGroup({
               </AvatarMotionContainer>
             );
           }
-          
+
           return (
             <AvatarCSSContainer
               key={index}

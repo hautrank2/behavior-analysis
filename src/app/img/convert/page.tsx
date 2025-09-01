@@ -93,7 +93,7 @@ const ImgConvertPage = () => {
       <ul className="flex flex-col gap-1">
         {uploadFiles.map((file, index) => {
           const byte = formatBytes(file.file.size);
-          const [fileName, fileExtension] = file.file.name.split(".");
+          const [fileName] = file.file.name.split(".");
           return (
             <li
               key={index}
