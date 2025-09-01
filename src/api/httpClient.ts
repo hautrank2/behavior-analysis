@@ -5,16 +5,15 @@ import axios, {
 } from "axios";
 
 export interface HttpError extends AxiosError {
-  config: any & { _retry?: boolean };
+  _retry?: boolean;
 }
 
-export interface HttpResponse {
+export interface HttpResponse<T = unknown> {
   status: number | string | null;
   statusText: string | null;
-  data: any;
+  data: T;
   dataNotFound?: Record<string, never>;
 }
-
 // Create Axios instance
 const httpClient: AxiosInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_ENDPOINT}`,

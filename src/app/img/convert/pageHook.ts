@@ -4,7 +4,7 @@ import z from "zod";
 import { UploadedFile, UploaderRef } from "~/components/upload";
 import { IMAGE_EXT_OPTIONS } from "~/constants/image";
 import { zodResolver } from "@hookform/resolvers/zod";
-import httpClient from "~/api/httpClient";
+import httpClient, { HttpError } from "~/api/httpClient";
 import { downloadZipBlob } from "~/utils/file";
 
 export const IMG_EXT_OPTIONS = IMAGE_EXT_OPTIONS;
@@ -109,7 +109,16 @@ export const useImgConvert = () => {
               : f
           )
         );
-      } catch (err: any) {
+      } catch (err: unknown) {
+        let errorText = "Unknown error";
+        if (
+          typeof err === "object" &&
+          err !== null &&
+          "response" in err &&
+          typeof (err as any).response.data?.text === "function"
+        ) {
+          errorText = await (err as any).response.data.text();
+        }
         setUploadFiles((prev) =>
           prev.map((f, i) =>
             i === index
@@ -117,7 +126,7 @@ export const useImgConvert = () => {
                   ...f,
                   state: "error",
                   progress: 1,
-                  errorText: err.response.data.text(),
+                  errorText,
                 }
               : f
           )

@@ -46,7 +46,7 @@ export type UploaderRef = {
   removeFile: (index: number) => void;
 };
 
-export const Uploader = forwardRef<UploaderRef, UploadProps>((props, ref) => {
+const Uploader = forwardRef<UploaderRef, UploadProps>((props, ref) => {
   const {
     className,
     title = "Upload",
@@ -210,3 +210,6 @@ export const Uploader = forwardRef<UploaderRef, UploadProps>((props, ref) => {
     </Card>
   );
 });
+
+Uploader.displayName = "Uploader";
+export { Uploader };
