@@ -1,0 +1,15 @@
+export const IMAGE_EXT_OPTIONS: { label: string; value: string }[] = [
+  { label: "JPEG (.jpg)", value: "jpg" },
+  { label: "JPEG (.jpeg)", value: "jpeg" },
+  { label: "PNG (.png)", value: "png" },
+  { label: "WebP (.webp)", value: "webp" },
+  { label: "AVIF (.avif)", value: "avif" },
+  { label: "GIF (.gif)", value: "gif" },
+  { label: "SVG (.svg)", value: "svg" },
+  { label: "BMP (.bmp)", value: "bmp" },
+  { label: "TIFF (.tiff)", value: "tiff" },
+  { label: "TIFF (.tif)", value: "tif" },
+  { label: "ICO (.ico)", value: "ico" },
+  { label: "HEIC (.heic)", value: "heic" },
+  { label: "HEIF (.heif)", value: "heif" },
+];

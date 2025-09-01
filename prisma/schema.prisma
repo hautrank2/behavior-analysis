@@ -1,0 +1,27 @@
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Behavior {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    type      String // "page_view" | "session_start" | "session_end" | "button_click"
+    eventTime DateTime @db.Date
+
+    pageUrl    String
+    pageParams String
+    pagePath   String
+
+    userId String
+
+    // fields optional tuỳ theo type
+    sessionId String? // dùng khi type = session_start / session_end
+    btnName   String? // dùng khi typenpx prisma generate = button_click
+
+    @@index([type, eventTime])
+    @@index([userId, eventTime])
+}
